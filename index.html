@@ -5,12 +5,22 @@
 </head>
 <body>
   <h1>Open HTML Files</h1>
-  <button onclick="openHTMLFile('file1.html')">Open File 1</button>
-  <button onclick="openHTMLFile('file2.html')">Open File 2</button>
+  <input type="file" id="fileInput" accept=".html" style="display: none;">
+  <button onclick="openSelectedFile()">Open File</button>
 
   <script>
-    function openHTMLFile(filename) {
-      window.open(filename, '_blank');
+    function openSelectedFile() {
+      const fileInput = document.getElementById('fileInput');
+      fileInput.click(); // Trigger the file input dialog
+
+      fileInput.addEventListener('change', () => {
+        const selectedFile = fileInput.files [0];
+        if (selectedFile && selectedFile.type === 'text/html') {
+          window.open(URL.createObjectURL(selectedFile), '_blank');
+        } else {
+          alert('Please select an HTML file.');
+        }
+      });
     }
   </script>
 </body>
